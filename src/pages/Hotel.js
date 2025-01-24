@@ -98,6 +98,24 @@ export default function Hotel() {
     }
   };
 
+   const addHotelToLocalStorage = (hotel) => {
+     // Retrieve the existing hotels from localStorage or initialize an empty array
+     const storedHotels = JSON.parse(localStorage.getItem("hotels")) || [];
+
+     // Add the new hotel to the array
+     storedHotels.push(hotel);
+
+     // Save the updated array back to localStorage
+     localStorage.setItem("hotels", JSON.stringify(storedHotels));
+
+     // Optionally, log for debugging
+     console.log("Hotel added to localStorage:", hotel);
+   };
+
+
+
+
+
   return (
     <DashboardLayout>
       <div className="w-full">
@@ -187,7 +205,7 @@ export default function Hotel() {
             <div className="col-span-2 grid grid-cols-2 gap-5">
               {hotels.map((hotel) => (
                 <div
-                  key={hotel.id }
+                  key={hotel.id}
                   className="flex items-center cursor-pointer bg-white p-4 rounded gap-3"
                   onClick={() => fetchAvailableHotels(hotel)}
                 >
@@ -222,7 +240,6 @@ export default function Hotel() {
             </div>
           )}
 
-          {/* Available Hotels - Only show when hotels are available */}
           {availableHotels.length > 0 && !loading.hotels && (
             <div className="col-span-2 grid grid-cols-2 gap-5">
               {availableHotels.map((hotel) => (
@@ -250,7 +267,10 @@ export default function Hotel() {
                     </p>
                     <p>CHECKIN:{hotel.property.checkinDate}</p>
                     <p>CHECKOUT:{hotel.property.checkoutDate}</p>
-                    <button className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600">
+                    <button
+                      onClick={() => addHotelToLocalStorage(hotel)}
+                      className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600"
+                    >
                       Add Hotel
                     </button>
                   </div>
