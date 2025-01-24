@@ -33,8 +33,7 @@ export default function Attractions() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "booking-com15.p.rapidapi.com",
-            "x-rapidapi-key":
-              "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0",
+            "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
           },
         }
       );
@@ -66,8 +65,7 @@ export default function Attractions() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "booking-com15.p.rapidapi.com",
-            "x-rapidapi-key":
-              "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0",
+            "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
           },
         }
       );
@@ -137,17 +135,17 @@ export default function Attractions() {
         {/* Error Handling */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {!loading.destinations && 
-         !loading.items && 
-         destinations.length === 0 && 
-         attractionItems.length === 0 && 
-         data.activities.length > 0 && (
-          <div className="mt-2 mb-4 rounded p-3 grid gap-5">
-            {data.activities.map((activity, index) => (
-              <ActivityCard key={index} activity={activity} />
-            ))}
-          </div>
-        )}
+        {!loading.destinations &&
+          !loading.items &&
+          destinations.length === 0 &&
+          attractionItems.length === 0 &&
+          data.activities.length > 0 && (
+            <div className="mt-2 mb-4 rounded p-3 grid gap-5">
+              {data.activities.map((activity, index) => (
+                <ActivityCard key={index} activity={activity} />
+              ))}
+            </div>
+          )}
 
         {/* Destinations */}
         <div className="mt-2 mb-4 rounded p-3 grid grid-cols-2 gap-5">
@@ -223,9 +221,6 @@ export default function Attractions() {
                     Rating: {item.reviewsStats?.combinedNumericStats?.average} (
                     {item.reviewsStats?.allReviewsCount} reviews)
                   </p>
-
-              
-                  
 
                   {/* Button */}
                   <button className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600">

@@ -16,7 +16,6 @@ export default function Hotel() {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
 
-  // Fetch hotels by name
   const fetchHotels = async () => {
     if (!searchTerm) return;
 
@@ -32,8 +31,7 @@ export default function Hotel() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "booking-com15.p.rapidapi.com",
-            "x-rapidapi-key":
-              "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0",
+            "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
           },
         }
       );
@@ -69,8 +67,7 @@ export default function Hotel() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "booking-com15.p.rapidapi.com",
-            "x-rapidapi-key":
-              "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0",
+            "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
           },
         }
       );
@@ -147,7 +144,6 @@ export default function Hotel() {
                 />
               </div>
 
-            
               <button
                 onClick={fetchHotels}
                 className="bg-primary_600 text-white 1920:px-7 px-5  h-full rounded hover:bg-blue-600"
