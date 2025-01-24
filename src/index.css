@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: "Poppins", serif;
+  background-color: #f0f2f5;
+}
+
+@layer base {
+  :root {
+    --primary: #0a6de4;
+    --neutral_300: #f0f2f5;
+    --black-secondary: #647995;
+    --black-primary: #1d2433;
+    --secondary: #fef4e6;
+    --secondary-900: #7a4504;
+    --primary-100: #e7f0ff;
+    --neutral-500:#D0D5DD;
+    --primary-1100:#000031;
+    --primary-600:#0D6EFD
+    
+  }
+  .dark {
+    --primary: #0a6de4;
+    --neutral_300: #f0f2f5;
+    --black-secondary: #647995;
+    --black-primary: #1d2433;
+    --secondary: #fef4e6;
+    --secondary-900: #7a4504;
+    --primary-100: #e7f0ff;
+    --neutral-500:#D0D5DD;
+     --primary-1100:#000031;
+      --primary-600:#0D6EFD
+  }
+}
