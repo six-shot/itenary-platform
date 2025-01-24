@@ -7,6 +7,8 @@ import ActivityCard from "../components/ui/activities-card";
 import AddActivityModal from "../components/ui/modals/add-activities-modal";
 
 export default function Attractions() {
+    const REACT_APP_RAPID_API =
+      "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0";
   const { data, setIsActivityModalOpen } = useData();
   const [searchTerm, setSearchTerm] = useState("");
   const [destinations, setDestinations] = useState([]);
@@ -33,7 +35,7 @@ export default function Attractions() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "booking-com15.p.rapidapi.com",
-            "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
+            "x-rapidapi-key": REACT_APP_RAPID_API,
           },
         }
       );
@@ -65,7 +67,7 @@ export default function Attractions() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "booking-com15.p.rapidapi.com",
-            "x-rapidapi-key": process.env.REACT_APP_RAPID_API,
+            "x-rapidapi-key": REACT_APP_RAPID_API,
           },
         }
       );
