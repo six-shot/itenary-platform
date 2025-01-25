@@ -148,17 +148,7 @@ export default function Attractions() {
         {/* Error Handling */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {!loading.destinations &&
-          !loading.items &&
-          destinations.length === 0 &&
-          attractionItems.length === 0 &&
-          data.activities.length > 0 && (
-            <div className="mt-2 mb-4 rounded p-3 grid gap-5">
-              {data.activities.map((activity, index) => (
-                <ActivityCard key={index} activity={activity} />
-              ))}
-            </div>
-          )}
+   
 
         {/* Destinations */}
         <div className="mt-2 mb-4 rounded p-3 grid grid-cols-2 gap-5">

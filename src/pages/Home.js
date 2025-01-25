@@ -11,8 +11,10 @@ import Trips from "../components/trips";
 import Hotels from "../components/hotels";
 import Activities from "../components/activities";
 import { useData } from "../context/data-context";
+import { Link } from "react-router-dom";
 export default function Home() {
-  const { setIsActivityModalOpen, setIsHotelModalOpen, setIsFlightModalOpen } = useData();
+  const { setIsActivityModalOpen, setIsHotelModalOpen, setIsFlightModalOpen } =
+    useData();
 
   return (
     <DashboardLayout>
@@ -64,12 +66,11 @@ export default function Home() {
               Build, personalize, and optimize your <br /> itineraries with our
               trip planner.
             </p>
-            <button
-              onClick={() => setIsActivityModalOpen(true)}
-              className="w-full 1920:h-[46px] h-[42px] bg-primary_600 1920:text-base text-sm rounded mt-[37px]"
-            >
-              Add Activities
-            </button>
+            <Link to="/activities">
+              <button className="w-full 1920:h-[46px] h-[42px] bg-primary_600 1920:text-base text-sm rounded mt-[37px]">
+                Add Activities
+              </button>
+            </Link>
           </div>
           <div className="px-[14px] pt-4 py-[18px] bg-primary_100 rounded text-black">
             <h4 className="font-semibold">Hotels</h4>
@@ -77,12 +78,11 @@ export default function Home() {
               Build, personalize, and optimize your <br /> itineraries with our
               trip planner.
             </p>
-            <button
-              onClick={() => setIsHotelModalOpen(true)}
-              className="w-full 1920:h-[46px] h-[42px] bg-primary_600 1920:text-base text-sm rounded mt-[37px]"
-            >
-              Add Hotelss
-            </button>
+            <Link to="/hotels">
+              <button className="w-full 1920:h-[46px] h-[42px] bg-primary_600 1920:text-base text-sm rounded mt-[37px]">
+                Add Hotels
+              </button>
+            </Link>
           </div>
           <div className="px-[14px] pt-4 py-[18px] bg-primary_600 rounded text-white">
             <h4 className="font-semibold">Flight</h4>
@@ -90,12 +90,14 @@ export default function Home() {
               Build, personalize, and optimize your <br /> itineraries with our
               trip planner.
             </p>
-            <button
-              onClick={() => setIsFlightModalOpen(true)}
-              className="w-full 1920:h-[46px] h-[42px] bg-white text-primary_600 1920:text-base text-sm  rounded mt-[37px]"
-            >
-              Add Flights
-            </button>
+            <Link to="/flight">
+              <button
+            
+                className="w-full 1920:h-[46px] h-[42px] bg-white text-primary_600 1920:text-base text-sm  rounded mt-[37px]"
+              >
+                Add Flights
+              </button>
+            </Link>
           </div>
         </div>
         <Trips />
