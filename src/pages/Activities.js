@@ -9,7 +9,7 @@ import { toast } from "sonner";
 
 export default function Attractions() {
   const REACT_APP_RAPID_API =
-    "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0";
+    "70731fb9c6msha5f8a678815933cp109b3ajsn92e221a94a2e";
   const { data, setIsActivityModalOpen } = useData();
   const [searchTerm, setSearchTerm] = useState("");
   const [destinations, setDestinations] = useState([]);

@@ -4,8 +4,8 @@ import flight from "../assets/flight.jpg";
 import search from "../assets/svg/MagnifyingGlass.svg";
 
 export default function FlightBooking() {
-    const REACT_APP_RAPID_API =
-      "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0";
+  const REACT_APP_RAPID_API =
+    "70731fb9c6msha5f8a678815933cp109b3ajsn92e221a94a2e";
   const [fromSearchTerm, setFromSearchTerm] = useState("");
   const [toSearchTerm, setToSearchTerm] = useState("");
   const [fromLocations, setFromLocations] = useState([]);
@@ -233,8 +233,8 @@ export default function FlightBooking() {
           {flights && flights.airlines && (
             <div>
               <h3 className="text-lg font-bold ">Airlines Available </h3>
-              <div className="mt-6 grid grid-cols-2 gap-6 ">
-                <div>
+              <div className="mt-1">
+                <div className="flex ">
                   {flights.airlines.map((airline) => (
                     <div
                       key={airline.iataCode}
@@ -274,6 +274,98 @@ export default function FlightBooking() {
               </div>
             </div>
           )}
+        </div>
+        <div className="mt-8">
+          <h3 className="text-2xl font-bold text-center">Flight Times</h3>
+          <div className="flex flex-col lg:flex-row gap-8 mt-4">
+            {/* Arrival Times */}
+            <div className="mt-6">
+              {flights && flights.airlines && (
+                <div>
+                  <h3 className="text-lg font-bold ">
+                    Available Airlines & Flights
+                  </h3>
+                  <div className="mt-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {flights.airlines.map((airline) => (
+                      <div
+                        key={airline.iataCode}
+                        className="bg-white rounded p-4 mb-4 shadow-md"
+                      >
+                        <div className="flex items-center gap-4">
+                          {/* Airline logo */}
+                          <div className="w-[100px] h-[70px] bg-black rounded flex items-center justify-center overflow-hidden">
+                            {airline.logoUrl ? (
+                              <img
+                                src={airline.logoUrl}
+                                className="rounded w-full h-full object-cover"
+                                alt={`Logo of ${airline.name}`}
+                              />
+                            ) : (
+                              <span className="text-white text-sm text-center">
+                                No image available
+                              </span>
+                            )}
+                          </div>
+                          {/* Airline Name */}
+                          <div>
+                            <h6 className="text-lg font-medium">
+                              {airline.name}
+                            </h6>
+                            <p className="text-sm text-gray-500">
+                              Code: {airline.iataCode}
+                            </p>
+                          </div>
+                        </div>
+                        {/* Flight Details */}
+                        <div className="mt-4">
+                          {flights.flightTimes &&
+                          flights.flightTimes.length > 0 ? (
+                            <div className="space-y-2">
+                              {flights.flightTimes.map((flight, index) => (
+                                <div
+                                  key={index}
+                                  className="border rounded p-3 bg-gray-50 hover:shadow"
+                                >
+                                  <h5 className="font-medium text-gray-800">
+                                    Flight: {flight.start}
+                                  </h5>
+                                  <p className="text-sm text-gray-600">
+                                    Departure: {flight.departureTime}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    Arrival: {flight.arrivalTime}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="text-sm text-gray-500">
+                              No flight details available.
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Departure Times */}
+            {/* <div className="flex-1 bg-white shadow-md rounded-lg p-4">
+              <h4 className="text-xl font-medium mb-4">Departure Times</h4>
+              <ul className="space-y-2">
+                {flightTimes.departure.map((time, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span className="text-lg">{`${time.start} - ${time.end}`}</span>
+                    <span className="bg-gray-100 px-4 py-1 rounded text-gray-700">
+                      {time.count} flights
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div> */}
+          </div>
         </div>
       </div>
     </DashboardLayout>
