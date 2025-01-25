@@ -5,14 +5,18 @@ import search from "../assets/svg/MagnifyingGlass.svg";
 import { useData } from "../context/data-context";
 import ActivityCard from "../components/ui/activities-card";
 import AddActivityModal from "../components/ui/modals/add-activities-modal";
+import { toast } from "sonner";
 
 export default function Attractions() {
-    const REACT_APP_RAPID_API =
-      "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0";
+  const REACT_APP_RAPID_API =
+    "c596ed17b2msha5f1d44f932af2bp1969f8jsn4ac892981ae0";
   const { data, setIsActivityModalOpen } = useData();
   const [searchTerm, setSearchTerm] = useState("");
   const [destinations, setDestinations] = useState([]);
   const [attractionItems, setAttractionItems] = useState([]);
+
+  const [activities, setActivities] = useState([]);
+  const [availableActivities, setAvailableActivities] = useState([]);
   const [loading, setLoading] = useState({
     destinations: false,
     items: false,
@@ -84,6 +88,13 @@ export default function Attractions() {
     } finally {
       setLoading((prev) => ({ ...prev, items: false }));
     }
+  };
+  const addActivityToLocalStorage = (activity) => {
+    const storedActivities =
+      JSON.parse(localStorage.getItem("activities")) || [];
+    storedActivities.push(activity);
+    localStorage.setItem("activities", JSON.stringify(storedActivities));
+    toast.success("Activity Added", activities);
   };
 
   return (
@@ -225,7 +236,10 @@ export default function Attractions() {
                   </p>
 
                   {/* Button */}
-                  <button className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600">
+                  <button
+                    onClick={() => addActivityToLocalStorage(item)}
+                    className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600"
+                  >
                     Add to Itinerary
                   </button>
                 </div>

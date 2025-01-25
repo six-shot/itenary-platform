@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DashboardLayout from "../layouts/Dashboardlayout";
 import hotel from "../assets/hotel.jpg";
 import search from "../assets/svg/MagnifyingGlass.svg";
+import { toast } from "sonner";
 
 export default function Hotel() {
   const REACT_APP_RAPID_API =
@@ -19,15 +20,11 @@ export default function Hotel() {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
 
-
-
-  
-
   const fetchHotels = async () => {
-      setHotels([]);
-      setAvailableHotels([]);
-      setSelectedDestination(null);
-    
+    setHotels([]);
+    setAvailableHotels([]);
+    setSelectedDestination(null);
+
     if (!searchTerm) return;
 
     setLoading((prev) => ({ ...prev, destinations: true }));
@@ -98,23 +95,15 @@ export default function Hotel() {
     }
   };
 
-   const addHotelToLocalStorage = (hotel) => {
-     // Retrieve the existing hotels from localStorage or initialize an empty array
-     const storedHotels = JSON.parse(localStorage.getItem("hotels")) || [];
+  const addHotelToLocalStorage = (hotel) => {
+    const storedHotels = JSON.parse(localStorage.getItem("hotels")) || [];
 
-     // Add the new hotel to the array
-     storedHotels.push(hotel);
+    storedHotels.push(hotel);
 
-     // Save the updated array back to localStorage
-     localStorage.setItem("hotels", JSON.stringify(storedHotels));
+    localStorage.setItem("hotels", JSON.stringify(storedHotels));
 
-     // Optionally, log for debugging
-     console.log("Hotel added to localStorage:", hotel);
-   };
-
-
-
-
+    toast.success("Hotel Added", hotels);
+  };
 
   return (
     <DashboardLayout>

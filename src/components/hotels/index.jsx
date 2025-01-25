@@ -12,20 +12,17 @@ import close from "../../assets/svg/X.svg";
 
 export default function Hotels() {
   const { data, setIsHotelModalOpen } = useData();
-  const [storedHotels, setStoredHotels] = useState([]);
+  const [localHotels, setLocalHotels] = useState([]);
 
-  // Load hotels from localStorage on component mount
+
   useEffect(() => {
     const hotelsFromStorage = JSON.parse(localStorage.getItem("hotels")) || [];
-    setStoredHotels(hotelsFromStorage);
+    setLocalHotels(hotelsFromStorage);
   }, []);
 
-  // Remove hotel by ID
-  const removeHotel = (hotelId) => {
-    const updatedHotels = storedHotels.filter((hotel) => hotel._id !== hotelId);
-    setStoredHotels(updatedHotels); // Update local state
-    localStorage.setItem("hotels", JSON.stringify(updatedHotels)); // Persist to localStorage
-  };
+ 
+
+
 
   return (
     <div className="mt-4">
@@ -48,7 +45,7 @@ export default function Hotels() {
             <HotelCard key={index} hotel={hotel} />
           ))}
 
-          {storedHotels.map((hotel) => (
+          {localHotels.map((hotel) => (
             <div className="flex" key={hotel._id}>
               <div className="relative p-6 bg-white rounded-l flex flex-col w-full">
                 <div className="flex items-start">
@@ -124,7 +121,7 @@ export default function Hotels() {
                 </div>
               </div>
               <div
-                onClick={() => removeHotel(hotel._id)}
+           
                 className="flex justify-center items-center w-[46px] h-auto bg-[#FBEAE9] border rounded-r cursor-pointer"
               >
                 <img src={close} alt="close" />
@@ -132,7 +129,7 @@ export default function Hotels() {
             </div>
           ))}
 
-          {storedHotels.length === 0 && data.hotels.length === 0 && (
+          {localHotels.length === 0 && data.hotels.length === 0 && (
             <div className="text-center py-8 text-white">
               No hotels added yet. Click "Add Hotel" to get started.
             </div>
