@@ -116,6 +116,7 @@ export default function Attractions() {
                 <img className="" src={search} alt="search" />
                 <input
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && fetchDestinations()}
                   required
                   placeholder="Search your attraction location"
                   className="relative bg-transparent p-3 text-lg w-full placeholder:text-stone-400 focus:outline-none"
@@ -147,8 +148,6 @@ export default function Attractions() {
 
         {/* Error Handling */}
         {error && <p className="text-red-500 text-center">{error}</p>}
-
-   
 
         {/* Destinations */}
         <div className="mt-2 mb-4 rounded p-3 grid grid-cols-2 gap-5">

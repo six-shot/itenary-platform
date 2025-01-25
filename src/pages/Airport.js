@@ -114,6 +114,7 @@ export default function FlightBooking() {
                   <input
                     value={fromSearchTerm}
                     onChange={(e) => setFromSearchTerm(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && searchFlights()}
                     placeholder="Search from locations"
                     className="relative bg-transparent p-3 text-lg w-full placeholder:text-stone-400 focus:outline-none"
                   />
@@ -276,7 +277,6 @@ export default function FlightBooking() {
           )}
         </div>
         <div className="mt-8">
-      
           <div className="flex flex-col lg:flex-row gap-8 mt-4">
             {/* Arrival Times */}
             <div className="mt-6">

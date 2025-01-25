@@ -124,6 +124,7 @@ export default function Hotel() {
                 <img className="" src={search} alt="search" />
                 <input
                   onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && fetchHotels()}
                   required
                   placeholder="Search your destination?"
                   className="relative bg-transparent p-3 1920:text-lg text-sm w-full placeholder:text-stone-400 focus:outline-none"
