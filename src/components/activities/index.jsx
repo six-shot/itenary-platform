@@ -69,7 +69,8 @@ export default function Activities() {
                       <div className="flex items-center gap-1">
                         <img src={star} alt="star" />
                         <h5 className="text-black_secondary font-medium">
-                          {activities.reviewsStats.combinedNumericStats.average}
+                          {activities.reviewsStats?.combinedNumericStats
+                            ?.average ?? "N/A"}
                         </h5>
                       </div>
                       <div className="flex items-center gap-1">
