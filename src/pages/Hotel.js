@@ -115,7 +115,7 @@ export default function Hotel() {
           <h4 className="text-[32px] font-medium text-white text-center px-4">
             Explore Our Various Hotels in Different Destinations Today!!
           </h4>
-          <div className="flex justify-between items-center mt-6">
+          <div className="flex justify-between items-center">
             <div className="flex gap-4 items-center ">
               <div className="flex items-center 1920:gap-5 gap-3 1920:h-[70px] h-[47px] white py-1.5 px-2 rounded bg-white">
                 <div className="flex justify-between items-center bg-white rounded 1920:h-[70px] h-[47px] py-3 px-3 w-[300px] 1920:w-[400px]">
@@ -131,7 +131,7 @@ export default function Hotel() {
                 <div className="flex items-center gap-3">
                   <label
                     htmlFor="checkInDate"
-                    className="1920:text-[20px] text-base uppercase font-medium"
+                    className="1920:text-[20px] text-sm uppercase font-medium"
                   >
                     Check-in Date
                   </label>
@@ -147,7 +147,7 @@ export default function Hotel() {
                 <div className="flex items-center gap-3">
                   <label
                     htmlFor="checkOutDate"
-                    className=" 1920:text-[20px] text-base  uppercase font-medium"
+                    className=" 1920:text-[20px] text-sm  uppercase font-medium"
                   >
                     Check-out Date
                   </label>
