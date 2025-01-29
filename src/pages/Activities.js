@@ -6,6 +6,7 @@ import { useData } from "../context/data-context";
 import ActivityCard from "../components/ui/activities-card";
 import AddActivityModal from "../components/ui/modals/add-activities-modal";
 import { toast } from "sonner";
+import nosearchfound from  "../assets/svg/no-search-found.svg"
 
 export default function Attractions() {
   const REACT_APP_RAPID_API =
@@ -101,47 +102,38 @@ export default function Attractions() {
     <DashboardLayout>
       <div className="w-full">
         <div
-          className="w-full h-[400px] rounded bg-cover bg-center flex items-center justify-center"
+          className="w-full h-[400px] rounded bg-cover bg-center flex flex-col items-center justify-center"
           style={{ backgroundImage: `url(${hotel})` }}
         >
           <h4 className="text-[32px] font-medium text-white text-center px-4">
             Explore What attracts you today!!
           </h4>
-        </div>
-
-        <div className="flex justify-between items-center mt-6">
           <div className="flex gap-4 items-center">
-            <div className="flex items-center gap-5 h-[70px] white p-3 rounded bg-white">
-              <div className="flex justify-between items-center bg-white rounded h-[70px] py-3 px-3 w-[400px]">
+            <div className="flex items-center gap-5 1920:h-[70px] h-[47px] white py-1.5 px-2 rounded bg-white">
+              <div className="flex justify-between items-center bg-white rounded 1920:h-[70px] h-[47px] py-3 px-3 w-[400px]">
                 <img className="" src={search} alt="search" />
                 <input
                   onChange={(e) => setSearchTerm(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && fetchDestinations()}
                   required
                   placeholder="Search your attraction location"
-                  className="relative bg-transparent p-3 text-lg w-full placeholder:text-stone-400 focus:outline-none"
+                  className="relative bg-transparent p-3 1920:text-lg w-full placeholder:text-stone-400 focus:outline-none text-sm"
                 />
               </div>
 
               <button
                 onClick={fetchDestinations}
-                className="bg-primary_600 text-white px-7 h-full rounded hover:bg-blue-600"
+                className="bg-primary_600 text-white 1920:px-7 px-4 h-full rounded hover:bg-blue-600 1920:text-base text-sm"
               >
                 Search
               </button>
             </div>
           </div>
-          <button
-            onClick={() => setIsActivityModalOpen(true)}
-            className="bg-primary_600 text-white px-7 h-[50px] rounded hover:bg-blue-700"
-          >
-            Add Activities
-          </button>
         </div>
 
         {/* Loading State */}
         {(loading.destinations || loading.items) && (
-          <div className="flex justify-center items-center ">
+          <div className="flex justify-center items-center mt-10">
             <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
           </div>
         )}
@@ -149,92 +141,106 @@ export default function Attractions() {
         {/* Error Handling */}
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* Destinations */}
-        <div className="mt-2 mb-4 rounded p-3 grid grid-cols-2 gap-5">
-          {!loading.destinations &&
-            destinations.length > 0 &&
-            destinations.map((destination, index) => (
-              <div
-                key={destination.id || index}
-                className="flex items-center cursor-pointer bg-white p-4 rounded gap-3"
-                onClick={() => fetchAttractionItems(destination)}
-              >
-                <div>
-                  <h4 className="font-bold text-lg">{destination.title}</h4>
-                  <p>{destination.cityName}</p>
-                  <button
-                    className="text-primary_600 cursor-pointer font-semibold mt-4"
-                    onClick={() => fetchAttractionItems(destination)}
-                  >
-                    View Attractions
-                  </button>
-                </div>
-              </div>
-            ))}
-        </div>
-
         {/* Attraction Items */}
-        <div className="mt-2 mb-4 rounded p-3 grid grid-cols-2 gap-5">
-          {!loading.items &&
-            attractionItems.length > 0 &&
-            attractionItems.map((item, index) => (
-              <div
-                key={item.id || index}
-                className="flex items-start bg-white p-4 rounded gap-3"
-              >
-                {/* Primary Photo */}
-                <div className="w-[100px] h-[100px] bg-black rounded flex items-center justify-center overflow-hidden">
-                  <img
-                    src={item.primaryPhoto?.small}
-                    className="rounded w-full h-full object-cover"
-                    alt={`Image of ${item.name}`}
-                  />
+        <div className="w-full mt-2 mb-4 rounded p-3">
+          {searchTerm.trim() === "" ? (
+            <div className="flex flex-col justify-center w-full items-center text-gray-500 mt-10">
+              <img src={nosearchfound} alt="no-search-found" />
+              <h5 className="text-[20px]">
+                Start searching for your destination!
+              </h5>
+            </div>
+          ) : !loading.destinations &&
+            destinations.length === 0 &&
+            attractionItems.length === 0 ? (
+            <div className="flex flex-col justify-center w-full items-center text-gray-500 mt-10">
+              <img src={nosearchfound} alt="no-search-found" />
+              <h5 className="text-[20px]">No activities found</h5>
+            </div>
+          ) : (
+            <>
+              {/* Destinations Section */}
+              {!loading.destinations && destinations.length > 0 && (
+                <div className="grid grid-cols-2 gap-5">
+                  {destinations.map((destination, index) => (
+                    <div
+                      key={destination.id || index}
+                      className="flex flex-col items-start cursor-pointer bg-white p-4 rounded gap-3"
+                      onClick={() => fetchAttractionItems(destination)}
+                    >
+                      <div className="destination-container">
+                        <h4 className="font-bold text-lg">
+                          {destination.title}
+                        </h4>
+                        <p>{destination.cityName}</p>
+                        <button
+                          className="text-primary_600 cursor-pointer font-semibold mt-4"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            fetchAttractionItems(destination);
+                          }}
+                        >
+                          View Attractions
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div>
-                  {/* Name */}
-                  <h4 className="font-bold text-lg">{item.name}</h4>
+              )}
 
-                  {/* Short Description */}
-                  <p className="w-[500px] text-gray-600">
-                    {item.shortDescription}
-                  </p>
-
-                  {/* Location */}
-                  <p className="font-medium text-gray-700">
-                    Location: {item.ufiDetails?.bCityName},{" "}
-                    {item.ufiDetails?.url?.country.toUpperCase()}
-                  </p>
-
-                  {/* Representative Price */}
-                  <p className="font-semibold text-green-600">
-                    Price: {item.representativePrice?.currency}{" "}
-                    {item.representativePrice?.publicAmount?.toLocaleString()}
-                  </p>
-
-                  {/* Cancellation Policy */}
-                  {item.cancellationPolicy?.hasFreeCancellation && (
-                    <p className="text-green-500">
-                      Free Cancellation Available
-                    </p>
-                  )}
-
-                  {/* Reviews */}
-                  <p className="font-medium text-gray-700">
-                    Rating: {item.reviewsStats?.combinedNumericStats?.average} (
-                    {item.reviewsStats?.allReviewsCount} reviews)
-                  </p>
-
-                  {/* Button */}
-                  <button
-                    onClick={() => addActivityToLocalStorage(item)}
-                    className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600"
-                  >
-                    Add to Itinerary
-                  </button>
+              {/* Attraction Items Section */}
+              {!loading.items && attractionItems.length > 0 && (
+                <div className="grid grid-cols-2 gap-5">
+                  {attractionItems.map((item, index) => (
+                    <div
+                      key={item.id || index}
+                      className="flex items-start bg-white p-4 rounded gap-3"
+                    >
+                      <div className="w-[100px] h-[100px] bg-black rounded flex items-center justify-center overflow-hidden">
+                        <img
+                          src={item.primaryPhoto?.small}
+                          className="rounded w-full h-full object-cover"
+                          alt={`Image of ${item.name}`}
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg">{item.name}</h4>
+                        <p className="w-[500px] text-gray-600">
+                          {item.shortDescription}
+                        </p>
+                        <p className="font-medium text-gray-700">
+                          Location: {item.ufiDetails?.bCityName},{" "}
+                          {item.ufiDetails?.url?.country.toUpperCase()}
+                        </p>
+                        <p className="font-semibold text-green-600">
+                          Price: {item.representativePrice?.currency}{" "}
+                          {item.representativePrice?.publicAmount?.toLocaleString()}
+                        </p>
+                        {item.cancellationPolicy?.hasFreeCancellation && (
+                          <p className="text-green-500">
+                            Free Cancellation Available
+                          </p>
+                        )}
+                        <p className="font-medium text-gray-700">
+                          Rating:{" "}
+                          {item.reviewsStats?.combinedNumericStats?.average} (
+                          {item.reviewsStats?.allReviewsCount} reviews)
+                        </p>
+                        <button
+                          onClick={() => addActivityToLocalStorage(item)}
+                          className="bg-primary_600 text-white 1920:px-5 px-4 mt-6 1920:h-[46px] h-[38px] rounded hover:bg-blue-600 1920:text-base text-sm"
+                        >
+                          Add to Itinerary
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
+              )}
+            </>
+          )}
         </div>
+
         <AddActivityModal />
       </div>
     </DashboardLayout>

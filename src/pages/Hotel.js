@@ -109,71 +109,67 @@ export default function Hotel() {
     <DashboardLayout>
       <div className="w-full">
         <div
-          className="w-full h-[400px] rounded bg-cover bg-center flex items-center justify-center"
+          className="w-full h-[400px] rounded bg-cover bg-center flex flex-col items-center justify-center"
           style={{ backgroundImage: `url(${hotel})` }}
         >
           <h4 className="text-[32px] font-medium text-white text-center px-4">
             Explore Our Various Hotels in Different Destinations Today!!
           </h4>
-        </div>
+          <div className="flex justify-between items-center mt-6">
+            <div className="flex gap-4 items-center ">
+              <div className="flex items-center 1920:gap-5 gap-3 1920:h-[70px] h-[47px] white py-1.5 px-2 rounded bg-white">
+                <div className="flex justify-between items-center bg-white rounded 1920:h-[70px] h-[47px] py-3 px-3 w-[300px] 1920:w-[400px]">
+                  <img className="" src={search} alt="search" />
+                  <input
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && fetchHotels()}
+                    required
+                    placeholder="Search your destination?"
+                    className="relative bg-transparent p-3 1920:text-lg text-sm w-full placeholder:text-stone-400 focus:outline-none"
+                  />
+                </div>
+                <div className="flex items-center gap-3">
+                  <label
+                    htmlFor="checkInDate"
+                    className="1920:text-[20px] text-base uppercase font-medium"
+                  >
+                    Check-in Date
+                  </label>
+                  <input
+                    type="date"
+                    id="checkInDate"
+                    value={checkInDate}
+                    required
+                    onChange={(e) => setCheckInDate(e.target.value)}
+                    className="bg-white 1920:p-2 p-1 rounded border border-gray-300 1920:text-base text-sm"
+                  />
+                </div>
+                <div className="flex items-center gap-3">
+                  <label
+                    htmlFor="checkOutDate"
+                    className=" 1920:text-[20px] text-base  uppercase font-medium"
+                  >
+                    Check-out Date
+                  </label>
+                  <input
+                    type="date"
+                    id="checkOutDate"
+                    required
+                    value={checkOutDate}
+                    onChange={(e) => setCheckOutDate(e.target.value)}
+                    className="bg-white 1920:p-2 p-1 rounded border border-gray-300 1920:text-base text-sm"
+                  />
+                </div>
 
-        <div className="flex justify-between items-center mt-6">
-          <div className="flex gap-4 items-center ">
-            <div className="flex items-center 1920:gap-5 gap-3 1920:h-[70px] h-[50px] white p-3 rounded bg-white">
-              <div className="flex justify-between items-center bg-white rounded 1920:h-[70px] h-[50px] py-3 px-3 w-[300px] 1920:w-[400px]">
-                <img className="" src={search} alt="search" />
-                <input
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && fetchHotels()}
-                  required
-                  placeholder="Search your destination?"
-                  className="relative bg-transparent p-3 1920:text-lg text-sm w-full placeholder:text-stone-400 focus:outline-none"
-                />
-              </div>
-              <div className="flex items-center gap-3">
-                <label
-                  htmlFor="checkInDate"
-                  className="1920:text-[20px] text-base uppercase font-medium"
+                <button
+                  onClick={fetchHotels}
+                  className="bg-primary_600 text-white 1920:px-7 px-4  1920:text-base text-sm  h-full rounded hover:bg-blue-600"
                 >
-                  Check-in Date
-                </label>
-                <input
-                  type="date"
-                  id="checkInDate"
-                  value={checkInDate}
-                  required
-                  onChange={(e) => setCheckInDate(e.target.value)}
-                  className="bg-white 1920:p-2 p-1 rounded border border-gray-300"
-                />
+                  Search
+                </button>
               </div>
-              <div className="flex items-center gap-3">
-                <label
-                  htmlFor="checkOutDate"
-                  className=" 1920:text-[20px] text-base  uppercase font-medium"
-                >
-                  Check-out Date
-                </label>
-                <input
-                  type="date"
-                  id="checkOutDate"
-                  required
-                  value={checkOutDate}
-                  onChange={(e) => setCheckOutDate(e.target.value)}
-                  className="bg-white 1920:p-2 p-1 rounded border border-gray-300"
-                />
-              </div>
-
-              <button
-                onClick={fetchHotels}
-                className="bg-primary_600 text-white 1920:px-7 px-5  h-full rounded hover:bg-blue-600"
-              >
-                Search
-              </button>
             </div>
           </div>
-          <button className="bg-primary_600 text-white px-7  1920:h-[60px] h-[42px] rounded hover:bg-blue-600">
-            Add Hotels
-          </button>
         </div>
 
         {/* Results Section */}

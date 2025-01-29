@@ -7,7 +7,7 @@ import immigration from "../../assets/svg/SuitcaseRolling.svg";
 import visa from "../../assets/svg/NewspaperClipping.svg";
 import student from "../../assets/svg/Student.svg";
 import flight from "../../assets/svg/AirplaneTilt.svg";
-import hotel from "../../assets/svg/Buildings.svg";
+import hotel from "../../assets/svg/Building.svg";
 
 const sidebarItems = [
   { id: 1, name: "Activities", icon: activities, link: "/activities" },

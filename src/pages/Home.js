@@ -79,7 +79,7 @@ export default function Home() {
               trip planner.
             </p>
             <Link to="/hotels">
-              <button className="w-full 1920:h-[46px] h-[42px] bg-primary_600 1920:text-base text-sm rounded mt-[37px]">
+              <button className="w-full 1920:h-[46px] h-[42px] text-white bg-primary_600 1920:text-base text-sm rounded mt-[37px]">
                 Add Hotels
               </button>
             </Link>
