@@ -3,7 +3,7 @@ import DashboardLayout from "../layouts/Dashboardlayout";
 import hotel from "../assets/hotel.jpg";
 import search from "../assets/svg/MagnifyingGlass.svg";
 import { toast } from "sonner";
-
+import nosearchfound from "../assets/svg/no-search-found.svg";
 export default function Hotel() {
   const REACT_APP_RAPID_API =
     "70731fb9c6msha5f8a678815933cp109b3ajsn92e221a94a2e";
@@ -173,96 +173,115 @@ export default function Hotel() {
         </div>
 
         {/* Results Section */}
-        <div className="mt-2 mb- rounded p-3 grid grid-cols-2 gap-5 flex-col">
-          {/* Loading State */}
-          {(loading.destinations || loading.hotels) && (
-            <div className="col-span-2 flex justify-center items-center h-full">
+
+        <div className="mt-2 mb-4 p-3">
+          {loading.destinations || loading.hotels ? (
+            <div className="flex justify-center items-center mt-10">
               <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
             </div>
-          )}
-
-          {/* Error Handling */}
-          {error && (
-            <p className="col-span-2 text-red-500 text-center">{error}</p>
-          )}
-
-          {/* Destinations - Only show if no available hotels and not loading */}
-          {!availableHotels.length && !loading.hotels && hotels.length > 0 && (
-            <div className="col-span-2 grid grid-cols-2 gap-5">
-              {hotels.map((hotel) => (
-                <div
-                  key={hotel.id}
-                  className="flex items-center cursor-pointer bg-white p-4 rounded gap-3"
-                  onClick={() => fetchAvailableHotels(hotel)}
-                >
-                  <div className="w-[100px] h-[100px] bg-black rounded flex items-center justify-center overflow-hidden">
-                    {hotel.image_url ? (
-                      <img
-                        src={hotel.image_url}
-                        className="rounded w-full h-full object-cover"
-                        alt={`Image of ${hotel.hotel_name}`}
-                      />
-                    ) : (
-                      <span className="text-white text-sm text-center">
-                        No image available
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg">{hotel.label}</h4>
-                    <p>
-                      {hotel.name || "Unknown"}, {hotel.country}
-                    </p>
-                    <p>Hotels Available around here: {hotel.hotels || "N/A"}</p>
-                    <button
-                      className="text-primary_600 cursor-pointer font-semibold mt-4"
-                      onClick={() => fetchAvailableHotels(hotel)}
-                    >
-                      Check hotel details
-                    </button>
-                  </div>
-                </div>
-              ))}
+          ) : error ? (
+            <p className="text-red-500 text-center">{error}</p>
+          ) : searchTerm.trim() === "" ? (
+            <div className="flex flex-col justify-center w-full items-center  text-gray-500 mt-10">
+              <img src={nosearchfound} alt="no-search-found" />
+              <h5 className="text-[20px]">
+                Start searching for your destination!
+              </h5>
             </div>
-          )}
+          ) : (
+            <>
+              {/* Destinations - Only show if no available hotels and not loading */}
+              {!availableHotels.length &&
+                !loading.hotels &&
+                hotels.length > 0 && (
+                  <div className="grid grid-cols-2 gap-5">
+                    {" "}
+                    {/* Grid applied here */}
+                    {hotels.map((hotel) => (
+                      <div
+                        key={hotel.id}
+                        className="flex items-center cursor-pointer bg-white p-4 rounded gap-3"
+                        onClick={() => fetchAvailableHotels(hotel)}
+                      >
+                        <div className="w-[100px] h-[100px] bg-black rounded flex items-center justify-center overflow-hidden">
+                          {hotel.image_url ? (
+                            <img
+                              src={hotel.image_url}
+                              className="rounded w-full h-full object-cover"
+                              alt={`Image of ${hotel.hotel_name}`}
+                            />
+                          ) : (
+                            <span className="text-white text-sm text-center">
+                              No image available
+                            </span>
+                          )}
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-lg">{hotel.label}</h4>
+                          <p>
+                            {hotel.name || "Unknown"}, {hotel.country}
+                          </p>
+                          <p>
+                            Hotels Available around here:{" "}
+                            {hotel.hotels || "N/A"}
+                          </p>
+                          <button
+                            className="text-primary_600 cursor-pointer font-semibold mt-4"
+                            onClick={() => fetchAvailableHotels(hotel)}
+                          >
+                            Check hotel details
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
 
-          {availableHotels.length > 0 && !loading.hotels && (
-            <div className="col-span-2 grid grid-cols-2 gap-5">
-              {availableHotels.map((hotel) => (
-                <div
-                  key={hotel._id}
-                  className="flex items-start bg-white p-4 rounded gap-3"
-                >
-                  <div className="w-[100px] h-[100px] bg-black rounded flex items-center justify-center overflow-hidden">
-                    <img
-                      src={hotel.property.photoUrls[1]}
-                      className="rounded w-full h-full object-cover"
-                      alt={`Image of ${hotel.hotel_name}`}
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-lg">{hotel.property.name}</h4>
-                    <p className="w-[500px]">{hotel.accessibilityLabel}</p>
-                    <p className="font-medium">
-                      Review: {hotel.property.reviewScore} (
-                      {hotel.property.reviewCount} reviews)
-                    </p>
-                    <p className="font-bold">
-                      Price: {hotel.property.priceBreakdown.grossPrice.value}{" "}
-                      {hotel.property.priceBreakdown.grossPrice.currency}
-                    </p>
-                    <p>CHECKIN:{hotel.property.checkinDate}</p>
-                    <p>CHECKOUT:{hotel.property.checkoutDate}</p>
-                    <button
-                      onClick={() => addHotelToLocalStorage(hotel)}
-                      className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600"
+              {/* Available Hotels - Grid applied inside the child element */}
+              {availableHotels.length > 0 && !loading.hotels && (
+                <div className="grid grid-cols-2 gap-5">
+                  {" "}
+                  {/* Grid applied here */}
+                  {availableHotels.map((hotel) => (
+                    <div
+                      key={hotel._id}
+                      className="flex items-start bg-white p-4 rounded gap-3"
                     >
-                      Add Hotel
-                    </button>
-                  </div>
+                      <div className="w-[100px] h-[100px] bg-black rounded flex items-center justify-center overflow-hidden">
+                        <img
+                          src={hotel.property.photoUrls[1]}
+                          className="rounded w-full h-full object-cover"
+                          alt={`Image of ${hotel.hotel_name}`}
+                        />
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-lg">
+                          {hotel.property.name}
+                        </h4>
+                        <p className="w-[500px]">{hotel.accessibilityLabel}</p>
+                        <p className="font-medium">
+                          Review: {hotel.property.reviewScore} (
+                          {hotel.property.reviewCount} reviews)
+                        </p>
+                        <p className="font-bold text-green-500">
+                          Price:{" "}
+                          {hotel.property.priceBreakdown.grossPrice.value}{" "}
+                          {hotel.property.priceBreakdown.grossPrice.currency}
+                        </p>
+                        <p>CHECKIN:{hotel.property.checkinDate}</p>
+                        <p>CHECKOUT:{hotel.property.checkoutDate}</p>
+                        <button
+                          onClick={() => addHotelToLocalStorage(hotel)}
+                          className="bg-primary_600 text-white px-5 mt-6 h-[46px] rounded hover:bg-blue-600"
+                        >
+                          Add Hotel
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </div>
       </div>
